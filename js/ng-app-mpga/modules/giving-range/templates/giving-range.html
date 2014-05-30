@@ -1,0 +1,44 @@
+<div data-ng-include="'js/ng-app-mpga/templates/loading.html'" data-ng-hide="currentPartners"></div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>&nbsp;</th>
+    <th colspan="4" class="header header_one">Actual</th>
+    <th colspan="4" class="header header_two">Cumulative</th>
+  </tr>
+  <tr>
+    <th>Monthly Avg. Giving Range</th>
+
+    <th class="header_one_color">Nbr. of Partners</th>
+    <th class="header_one_color">Pct. of Partners</th>
+    <th class="header_one_color">Monthly Amt.</th>
+    <th class="header_one_color">Monthly Pct.</th>
+
+    <th class="header_two_color">Nbr. Partners</th>
+    <th class="header_two_color">Pct. of Partners</th>
+    <th class="header_two_color">Monthly Amt.</th>
+    <th class="header_two_color">Monthly Pct.</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr data-ng-repeat="range in ranges">
+    <td>${{range.low}}+</td>
+    
+    <td>{{currentPartners | rangeBandPass:range | size}}</td>
+    <td>{{currentPartners | rangeBandPass:range | countPercentage:totalCount | number:1}}%</td>
+    <td>{{currentPartners | rangeBandPass:range | monthlyAmount | currency}}</td>
+    <td>{{currentPartners | rangeBandPass:range | amountPercentage:totalAmount | number:1}}%</td>
+
+    <td>{{currentPartners | rangeHighPass:range | size}}</td>
+    <td>{{currentPartners | rangeHighPass:range | countPercentage:totalCount | number:1}}%</td>
+    <td>{{currentPartners | rangeHighPass:range | monthlyAmount | currency}}</td>
+    <td>{{currentPartners | rangeHighPass:range | amountPercentage:totalAmount | number:1}}%</td>
+  </tr>
+  </tbody>
+</table>
+
+<br>
+
+<h2>Number of Partners in Actual Giving Range</h2>
+<svg id="giving-range" data-nv-barchart data-input="chartData"></svg>

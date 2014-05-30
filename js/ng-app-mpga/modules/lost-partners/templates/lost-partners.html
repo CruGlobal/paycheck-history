@@ -1,0 +1,22 @@
+<div data-ng-include="'js/ng-app-mpga/templates/loading.html'" data-ng-hide="lostPartners"></div>
+
+<table class="table table-striped">
+  <thead>
+  <tr data-ng-class="arrowDirection">
+    <th>Acct. Number</th>
+    <th data-ng-class="active.accountName" data-ng-click="sortOn('accountName')">Acct. Name</th>
+    <th data-ng-class="active.firstTransactionDate" data-ng-click="sortOn('firstTransactionDate')">First Gift</th>
+    <th data-ng-class="active.lastTransactionDate" data-ng-click="sortOn('lastTransactionDate')">Last Gift</th>
+    <th data-ng-class="active.totalTransactionAmount" data-ng-click="sortOn('totalTransactionAmount')">Lifetime Tot.</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr data-ng-repeat="partner in lostPartners | orderBy:sortingColumn:reverse">
+    <td>{{partner.accountNumber}}</td>
+    <td>{{partner.accountName}}</td>
+    <td>{{partner.firstTransactionDate | moment:'MM/DD/YY'}}</td>
+    <td>{{partner.lastTransactionDate | moment:'MM/DD/YY'}}</td>
+    <td>{{partner.totalTransactionAmount | currency}}</td>
+  </tr>
+  </tbody>
+</table>

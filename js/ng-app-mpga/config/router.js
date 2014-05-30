@@ -1,0 +1,56 @@
+'use strict';
+
+(function () {
+  angular.module('mpga',
+      [
+        'mpga.current-partners',
+        'mpga.lost-partners',
+        'mpga.top-fifty',
+        'mpga.statistical-analysis',
+        'mpga.giving-range',
+        'mpga.giving-frequency',
+        'mpga.income-expenses',
+        'mpga.services',
+        'mpga.filters',
+        'mpga.directives'
+      ])
+    .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+      .when('/current-partners',
+      {
+        templateUrl:'js/ng-app-mpga/modules/current-partners/templates/current-partners.html',
+        controller:'CurrentPartnersController'
+      })
+      .when('/lost-partners',
+      {
+        templateUrl:'js/ng-app-mpga/modules/lost-partners/templates/lost-partners.html',
+        controller:'LostPartnersController'
+      })
+      .when('/top-fifty',
+      {
+        templateUrl:'js/ng-app-mpga/modules/top-fifty/templates/top-fifty.html',
+        controller:'TopFiftyController'
+      })
+      .when('/statistical-analysis',
+      {
+        templateUrl:'js/ng-app-mpga/modules/statistical-analysis/templates/statistical-analysis.html',
+        controller:'StatisticalAnalysisController'
+      })
+      .when('/giving-range',
+      {
+        templateUrl:'js/ng-app-mpga/modules/giving-range/templates/giving-range.html',
+        controller:'GivingRangeController'
+      })
+      .when('/giving-frequency',
+      {
+        templateUrl:'js/ng-app-mpga/modules/giving-frequency/templates/giving-frequency.html',
+        controller:'GivingFrequencyController'
+      })
+      .when('/income-expenses',
+      {
+        templateUrl:'js/ng-app-mpga/modules/income-expenses/templates/income-expenses.html',
+        controller:'IncomeExpensesController'
+      })
+      .otherwise({redirectTo:'/current-partners'});
+  }])
+})();
