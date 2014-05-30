@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mockServiceData = true;
+  var mockServiceData = false;
 
   var paycheckHistoryServicesModule = angular.module('paycheckHistory');
 
@@ -58,17 +58,15 @@
 
         return bothIds;
       }])
-      .service('SummaryLoader', ['EasyXdm', 'EmployeeIds', function (EasyXdm, EmployeeIds) {
+      .service('SummaryLoader', ['EasyXdm', function (EasyXdm) {
         return {
-          load: function (scope) {
-            var expensesPromise = EmployeeIds.then(function (employeeIds) {
-              return EasyXdm.fetch(scope, '/wsapi/rest/staffAccount/transactionSummariesByMonth?reimbursementDetail=fine&salaryDetail=coarse&transactionType=expense&employeeIds=' + employeeIds.join(','));
-            });
-            expensesPromise.then(null, function (error) {
+          load: function (scope, employeeId, year) {
+            var summary = EasyXdm.fetch(scope, '/wsapi/rest/paycheck/summary?employeeId=' + employeeId + '&year=' + year);
+            summary.then(null, function (error) {
               alert("Sorry, there was an error and your paycheck data could not be retrieved.");
             });
 
-            return expensesPromise;
+            return summary;
           }
         }
       }])
