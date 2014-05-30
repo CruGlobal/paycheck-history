@@ -7,13 +7,19 @@
 
   if (mockServiceData) {
     paycheckHistoryServicesModule
-      .service('SummaryLines', ['EasyXdm', '$resource', '$q', function (EasyXdm, resource, q) {
+      .service('EmployeeIds', ['$q', function (q) {
+        var deferred = q.defer();
+        var testIds = ["123456789", "123456789S"];
+        deferred.resolve(testIds);
+        return deferred.promise;
+      }])
+      .service('SummaryLines', ['$resource', '$q', function (resource, q) {
         return {
-          fetch: function (scope) {
+          fetch: function (scope, employeeId, year) {
             var deferred = q.defer();
 
-            resource('testData.json').query(function (partners) {
-              deferred.resolve(partners);
+            resource('test-data-' + employeeId + '-' + year + '.json').query(function (summary) {
+              deferred.resolve(summary);
             });
 
             return deferred.promise;
