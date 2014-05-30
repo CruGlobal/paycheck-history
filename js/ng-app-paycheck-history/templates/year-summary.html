@@ -1,40 +1,44 @@
 <div>
-    <h4>{{ownerPossessive}} Information</h4>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th colspan="1" class="header header_none">&nbsp;</th>
-            <th colspan="3" class="header header_one">Gross Pay</th>
-            <th colspan="4" class="header header_two">Deductions &amp; Withholdings</th>
-            <th colspan="1" class="header header_three">Net Pay</th>
-        </tr>
-        <tr>
-            <th class="header_none">&nbsp;</th>
 
-            <th class="header_one_color">Regular</th>
-            <th class="header_one_color">MHA</th>
-            <th class="header_one_color">Total</th>
+    <div data-ng-include="'js/ng-app-paycheck-history/templates/loading.html'" data-ng-hide="summary"></div>
+    <div data-ng-show="summary">
+      <h4>{{ownerPossessive}} Information</h4>
+      <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+              <th colspan="1" class="header header_none">&nbsp;</th>
+              <th colspan="3" class="header header_one">Gross Pay</th>
+              <th colspan="4" class="header header_two">Deductions &amp; Withholdings</th>
+              <th colspan="1" class="header header_three">Net Pay</th>
+          </tr>
+          <tr>
+              <th class="header_none">&nbsp;</th>
 
-            <th class="header_two_color">403(b)</th>
-            <th class="header_two_color">Roth 403(b)</th>
-            <th class="header_two_color">Taxes</th>
-            <th class="header_two_color">Other</th>
+              <th class="header_one_color">Regular</th>
+              <th class="header_one_color">MHA</th>
+              <th class="header_one_color">Total</th>
 
-            <th class="header_three_color"><strong>Total</strong></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="line in summary | reverse">
-            <td><a href="#">{{line.paycheckDate | moment:'M/D/YY' }}</a></td>
-            <td>${{line.regularPay}}</td>
-            <td>${{line.mhaPay}}</td>
-            <td>${{line.totalPay}}</td>
-            <td>${{line.preTax403b}}</td>
-            <td>${{line.roth403b}}</td>
-            <td>${{line.totalTax}}</td>
-            <td>${{line.totalDeductions}}</td>
-            <td class="total">${{line.netPay}}</td>
-        </tr>
-        </tbody>
-    </table>
+              <th class="header_two_color">403(b)</th>
+              <th class="header_two_color">Roth 403(b)</th>
+              <th class="header_two_color">Taxes</th>
+              <th class="header_two_color">Other</th>
+
+              <th class="header_three_color"><strong>Total</strong></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="line in summary | reverse">
+              <td><a href="#">{{line.paycheckDate | moment:'M/D/YY' }}</a></td>
+              <td>${{line.regularPay}}</td>
+              <td>${{line.mhaPay}}</td>
+              <td>${{line.totalPay}}</td>
+              <td>${{line.preTax403b}}</td>
+              <td>${{line.roth403b}}</td>
+              <td>${{line.totalTax}}</td>
+              <td>${{line.totalDeductions}}</td>
+              <td class="total">${{line.netPay}}</td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
 </div>
