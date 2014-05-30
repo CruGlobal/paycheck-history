@@ -4,7 +4,7 @@
     "payEndDate": "2012-12-31",
     "regularPay": "1313.27",
     "mhaPay": "0.00",
-    "totalPay": "1313.27",
+    "totalPay": "1314.27",
     "preTax403b": "192.67",
     "roth403b": "50.00",
     "federalTaxWithholdings": "171.97",
@@ -262,7 +262,7 @@
   {
     "paycheckDate": "2013-11-10",
     "payEndDate": "2013-10-31",
-    "regularPay": "711.16",
+    "regularPay": "682.16",
     "mhaPay": "616.37",
     "totalPay": "1326.63",
     "preTax403b": "237.79",
@@ -275,7 +275,7 @@
   {
     "paycheckDate": "2013-11-23",
     "payEndDate": "2013-11-16",
-    "regularPay": "711.16",
+    "regularPay": "682.16",
     "mhaPay": "616.37",
     "totalPay": "1326.63",
     "preTax403b": "237.79",
@@ -288,8 +288,8 @@
   {
     "paycheckDate": "2013-12-09",
     "payEndDate": "2013-11-30",
-    "regularPay": "711.16",
-    "mhaPay": "616.37",
+    "regularPay": "682.16",
+    "mhaPay": "612.37",
     "totalPay": "1326.63",
     "preTax403b": "237.79",
     "roth403b": "0.00",
@@ -301,8 +301,8 @@
   {
     "paycheckDate": "2013-12-22",
     "payEndDate": "2013-12-16",
-    "regularPay": "711.16",
-    "mhaPay": "616.37",
+    "regularPay": "682.16",
+    "mhaPay": "611.37",
     "totalPay": "1326.63",
     "preTax403b": "237.79",
     "roth403b": "0.00",
