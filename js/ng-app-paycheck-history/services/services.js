@@ -13,9 +13,9 @@
         deferred.resolve(testIds);
         return deferred.promise;
       }])
-      .service('SummaryLines', ['$resource', '$q', function (resource, q) {
+      .service('SummaryLoader', ['$resource', '$q', function (resource, q) {
         return {
-          fetch: function (scope, employeeId, year) {
+          load: function (scope, employeeId, year) {
             var deferred = q.defer();
 
             resource('test-data-' + employeeId + '-' + year + '.json').query(function (summary) {
@@ -58,9 +58,9 @@
 
         return bothIds;
       }])
-      .service('SummaryLines', ['EasyXdm', 'EmployeeIds', function (EasyXdm, EmployeeIds) {
+      .service('SummaryLoader', ['EasyXdm', 'EmployeeIds', function (EasyXdm, EmployeeIds) {
         return {
-          fetch: function (scope) {
+          load: function (scope) {
             var expensesPromise = EmployeeIds.then(function (employeeIds) {
               return EasyXdm.fetch(scope, '/wsapi/rest/staffAccount/transactionSummariesByMonth?reimbursementDetail=fine&salaryDetail=coarse&transactionType=expense&employeeIds=' + employeeIds.join(','));
             });
