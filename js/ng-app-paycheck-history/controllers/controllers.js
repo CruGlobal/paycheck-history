@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
-  angular.module('paycheckHistory', ['paycheckHistory.services', 'paycheckHistory.filters'])
+  angular.module('paycheckHistory', ['paycheckHistory.services', 'paycheckHistory.filters', 'paycheckHistory.directives'])
     .controller('DashboardController', ['$scope', 'SummaryLines', function (scope, SummaryLines) {
       scope.year = new Date().getFullYear();
 
-      scope.summaries = SummaryLines.fetch(scope);
+      scope.summary = SummaryLines.fetch(scope);
     }]);
 })();
