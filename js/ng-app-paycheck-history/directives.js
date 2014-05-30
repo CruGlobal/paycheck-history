@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('paycheckHistory.directives', []).
+  angular.module('paycheckHistory').
     directive('yearSummary',function () {
       return {
         restrict: 'E',

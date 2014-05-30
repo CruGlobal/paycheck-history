@@ -3,7 +3,7 @@
 (function () {
   var mockServiceData = true;
 
-  var paycheckHistoryServicesModule = angular.module('paycheckHistory.services', ['ngResource']);
+  var paycheckHistoryServicesModule = angular.module('paycheckHistory');
 
   if (mockServiceData) {
     paycheckHistoryServicesModule

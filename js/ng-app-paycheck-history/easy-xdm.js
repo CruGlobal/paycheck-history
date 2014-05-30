@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('paycheckHistory.services')
+  angular.module('paycheckHistory')
     .service('EasyXdm', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
 
       function log(something) {
