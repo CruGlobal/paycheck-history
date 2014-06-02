@@ -8,7 +8,7 @@
         scope:{
           summary:'=',
           renderLink: '=',
-          ownerPossessive: '=whose'
+          owner: '='
         },
         replace: true,
         templateUrl: 'js/ng-app-paycheck-history/templates/year-summary.html'

@@ -40,7 +40,7 @@
       <div class="navbar-inner">
         <ul class="nav" id="myTab">
           <li class="active"><a href="#employee" data-toggle="tab">My Paychecks</a></li>
-          <li><a href="#spouse" data-toggle="tab" ng-show="employeeIds[1]" style="display: none;">My Spouse's Paychecks</a></li>
+          <li><a href="#spouse" data-toggle="tab" ng-show="employeeIds[1]" style="display: none;">{{spouseEmployee.preferredFirstName}}'s Paychecks</a></li>
         </ul>
         <select class="year-select" ng-model="year">
           <option>2014</option>
@@ -51,11 +51,11 @@
     </div>
 
     <div class="tab-content">
-      <!-- TODO: get employee's name instead of passing 'My' and 'My Spouse's' -->
+
       <year-summary
         summary="mySummary"
         render-link="true"
-        whose="'My'"
+        owner="myEmployee"
         class="tab-pane active"
         id="employee">
       </year-summary>
@@ -63,7 +63,7 @@
       <year-summary
         summary="spouseSummary"
         render-link="false"
-        whose="'My Spouse\'s'"
+        owner="spouseEmployee"
         class="tab-pane"
         id="spouse">
       </year-summary>
