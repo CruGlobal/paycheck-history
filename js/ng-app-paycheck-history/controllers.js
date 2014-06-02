@@ -17,12 +17,21 @@
         scope.mySummary = EmployeeIds.then(function (employeeIds) {
           return SummaryLoader.load(scope, employeeIds[0], scope.year);
         });
+        scope.mySummaryLoaded = scope.mySummary.then(function(mySummary){
+          return true;
+        });
 
         scope.spouseSummary = EmployeeIds.then(function (employeeIds) {
-          if (employeeIds.length === 2)
-            return SummaryLoader.load(scope, employeeIds[1], scope.year);
-          else
+          if (employeeIds.length === 2) {
+            var spouseSummary = SummaryLoader.load(scope, employeeIds[1], scope.year);
+            scope.spouseSummaryLoaded = spouseSummary.then(function(mySummary){
+              return true;
+            });
+            return spouseSummary;
+          }
+          else {
             return [];
+          }
         });
       });
 
