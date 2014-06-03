@@ -17,14 +17,14 @@
 
               <th class="header_one_color">Regular</th>
               <th class="header_one_color">MHA</th>
-              <th class="header_one_color">Total</th>
+              <th class="header_one_color">Gross Total</th>
 
               <th class="header_two_color">403(b)</th>
               <th class="header_two_color">Roth 403(b)</th>
               <th class="header_two_color">Taxes</th>
               <th class="header_two_color">Other</th>
 
-              <th class="header_three_color"><strong>Total</strong></th>
+              <th class="header_three_color"><strong>Net Total</strong></th>
           </tr>
           </thead>
           <tbody>
@@ -42,7 +42,7 @@
           </tbody>
 
           <tfoot>
-          <tr class="total">
+          <tr>
             <td>Total</td>
 
             <td>{{ summary | sum:'regularPay' | currency:"$" }}</td>
