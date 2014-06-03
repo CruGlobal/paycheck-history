@@ -2,14 +2,14 @@
   {
     "paycheckDate": "2012-12-22",
     "payEndDate": "2012-12-16",
-    "regularPay": "711.16",
-    "mhaPay": "616.37",
-    "totalPay": "1326.63",
-    "preTax403b": "237.79",
-    "roth403b": "0.00",
-    "federalTaxWithholdings": "136.73",
-    "totalTax": "136.73",
-    "totalDeductions": "237.79",
-    "netPay": "931.00"
+    "regularPay": 711.16,
+    "mhaPay": 616.37,
+    "totalPay": 1326.63,
+    "preTax403b": 237.79,
+    "roth403b": 0.00,
+    "federalTaxWithholdings": 136.73,
+    "totalTax": 136.73,
+    "totalDeductions": 237.79,
+    "netPay": 931.00
   }
 ]

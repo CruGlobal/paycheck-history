@@ -40,6 +40,21 @@
               <td class="total">${{line.netPay}}</td>
           </tr>
           </tbody>
+
+          <tfoot>
+          <tr class="total">
+            <td>Total</td>
+
+            <td>${{ summary | sum:'regularPay' | number: 2 }}</td>
+            <td>${{ summary | sum:'mhaPay' | number: 2 }}</td>
+            <td>${{ summary | sum:'totalPay' | number:2 }}</td>
+            <td>${{ summary | sum:'preTax403b' | number:2 }}</td>
+            <td>${{ summary | sum:'roth403b' | number:2 }}</td>
+            <td>${{ summary | sum:'totalTax' | number:2 }}</td>
+            <td>${{ summary | sum:'totalDeductions' | number:2 }}</td>
+            <td>${{ summary | sum:'netPay' | number:'2' }}</td>
+          </tr>
+          </tfoot>
       </table>
     </div>
 </div>
