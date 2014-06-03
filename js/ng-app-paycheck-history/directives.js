@@ -19,7 +19,13 @@
           owner: '='
         },
         replace: true,
-        templateUrl: 'js/ng-app-paycheck-history/templates/year-summary.html'
+        templateUrl: 'js/ng-app-paycheck-history/templates/year-summary.html',
+        link: function(scope) {
+
+          //TODO: find a better place to store this
+          var pshrBase = "https://pshr.staging.ccci.org/psp/hcm9stg";
+          scope.paystubLink = pshrBase + "/EMPLOYEE/HRMS/c/ROLE_EMPLOYEE.PY_IC_PAY_INQ.GBL"
+        }
       }
     });
 })();

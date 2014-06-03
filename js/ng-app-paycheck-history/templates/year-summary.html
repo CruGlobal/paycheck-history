@@ -3,6 +3,7 @@
     <div data-ng-include="'js/ng-app-paycheck-history/templates/loading.html'" data-ng-hide="summaryLoaded"></div>
     <div data-ng-show="summaryLoaded">
       <h4>{{owner.preferredFirstName}}'s Information</h4>
+      <p ng-show="renderLink"><a href="{{paystubLink}}">View Paystubs</a></p>
       <table class="table table-striped table-hover">
           <thead>
           <tr>
@@ -28,7 +29,7 @@
           </thead>
           <tbody>
           <tr ng-repeat="line in summary | reverse">
-              <td><a href="#">{{line.paycheckDate | moment:'M/D/YY' }}</a></td>
+              <td>{{line.paycheckDate | moment:'M/D/YY' }}</td>
               <td>${{line.regularPay}}</td>
               <td>${{line.mhaPay}}</td>
               <td>${{line.totalPay}}</td>
