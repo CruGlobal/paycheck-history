@@ -7,10 +7,16 @@
 
       scope.employeeIds = EmployeeIds;
 
-      EmployeeIds.then(function (employeeIds) {
-        scope.myEmployee = EmployeeLoader.load(employeeIds[0]);
+      scope.myEmployee = EmployeeIds.then(function (employeeIds) {
+        var employee = EmployeeLoader.load(employeeIds[0]);
         if (employeeIds.length === 2)
           scope.spouseEmployee = EmployeeLoader.load(employeeIds[1]);
+        return employee;
+      });
+
+      scope.myEmployee.then(function(employee){
+        if (employee.payGroup !== "USS")
+          window.alert("This page only works for full-time supported staff.")
       });
 
       scope.$watch('year', function() {
