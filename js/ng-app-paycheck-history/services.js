@@ -51,10 +51,12 @@
             return spouseId;
           },
           function (error) {
-            if (error.response && error.response.code == 404) {
+            if (error.response && error.response.status == 404) {
               return null;
             }
             else {
+              console.log('rejecting response: ', error.response)
+              console.log('rejecting code: ' + error.response.status)
               return $q.reject(error);
             }
           }
