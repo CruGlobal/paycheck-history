@@ -36,7 +36,7 @@
               <td>{{line.preTax403b | currency:"$"}}</td>
               <td>{{line.roth403b | currency:"$"}}</td>
               <td>{{line.totalTax | currency:"$"}}</td>
-              <td>{{line.totalDeductions | currency:"$"}}</td>
+              <td>{{line.otherDeductions | currency:"$"}}</td>
               <td class="total">{{line.netPay | currency:"$"}}</td>
           </tr>
           </tbody>
@@ -51,7 +51,7 @@
             <td>{{ summary | sum:'preTax403b' | currency:"$" }}</td>
             <td>{{ summary | sum:'roth403b' | currency:"$" }}</td>
             <td>{{ summary | sum:'totalTax' | currency:"$" }}</td>
-            <td>{{ summary | sum:'totalDeductions' | currency:"$" }}</td>
+            <td>{{ summary | sum:'otherDeductions' | currency:"$" }}</td>
             <td>{{ summary | sum:'netPay' | currency:"$" }}</td>
           </tr>
           </tfoot>

@@ -27,6 +27,8 @@
           return true;
         });
 
+        scope.mySummary.then(addOtherDeductions);
+
         scope.spouseSummary = EmployeeIds.then(function (employeeIds) {
           if (employeeIds.length === 2) {
             var spouseSummary = SummaryLoader.load(scope, employeeIds[1], scope.year);
@@ -39,7 +41,15 @@
             return [];
           }
         });
+
+        scope.spouseSummary.then(addOtherDeductions);
       });
+
+      function addOtherDeductions(summary) {
+        _.each(summary, function (line) {
+          line.otherDeductions = line.totalDeductions - line.roth403b - line.preTax403b;
+        });
+      }
 
     }]);
 
