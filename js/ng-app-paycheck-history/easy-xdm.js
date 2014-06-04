@@ -4,15 +4,6 @@
   angular.module('paycheckHistory')
     .service('EasyXdm', ['$q', '$cacheFactory', 'wsapiUriBase', function ($q, $cacheFactory, wsapiUriBase) {
 
-      function log(something) {
-        if (console.log) {
-          if (something != undefined)
-            console.log(something);
-        }
-      }
-
-
-
       var xhr;
 
       reloadXhr();
