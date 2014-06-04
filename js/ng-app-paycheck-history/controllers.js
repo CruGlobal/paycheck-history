@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('paycheckHistory', ['ngResource'])
+  angular.module('paycheckHistory')
     .controller('DashboardController', ['$scope', 'SummaryLoader', 'EmployeeIds', 'EmployeeLoader', function (scope, SummaryLoader, EmployeeIds, EmployeeLoader) {
       scope.year = new Date().getFullYear();
 
