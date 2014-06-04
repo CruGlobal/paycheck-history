@@ -17,7 +17,7 @@
           load: function (scope, employeeId, year) {
             var deferred = q.defer();
 
-            resource('test-data-summary-' + employeeId + '-' + year + '.json').query(function (summary) {
+            resource('test-data/summary-' + employeeId + '-' + year + '.json').query(function (summary) {
               deferred.resolve(summary);
             });
 
@@ -30,7 +30,7 @@
           load: function (employeeId) {
             var deferred = q.defer();
 
-            resource('test-data-employee-' + employeeId + '.json').get(function (employee) {
+            resource('test-data/employee-' + employeeId + '.json').get(function (employee) {
               deferred.resolve(employee);
             });
 
