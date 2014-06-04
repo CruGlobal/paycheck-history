@@ -1,5 +1,17 @@
 'use strict';
 
+/**
+ * The purpose of this service is to do cross-domain communication with wsapi, using easyXDM
+ * (see http://easyxdm.net )
+ *
+ * It also has logic for handling authorization with wsapi, which uses Relay.
+ * It assumes the user has signed in to Relay prior to requesting this page.
+ *
+ * In the future, it'd be good to separate out the cross-domain stuff from the wsapi/auth stuff.
+ * It may also be good to use https://github.com/jpillora/xdomain instead of easyXDM.
+ *
+ * This file is copy/pasted from the MPGA project.
+ */
 (function () {
   angular.module('paycheckHistory')
     .service('EasyXdm', ['$q', '$cacheFactory', 'wsapiUriBase', function ($q, $cacheFactory, wsapiUriBase) {
