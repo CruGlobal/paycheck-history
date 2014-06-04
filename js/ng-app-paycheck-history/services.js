@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var mockServiceData = false;
 
   var paycheckHistoryServicesModule = angular.module('paycheckHistory');
 

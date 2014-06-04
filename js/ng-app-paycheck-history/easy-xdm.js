@@ -2,7 +2,7 @@
 
 (function () {
   angular.module('paycheckHistory')
-    .service('EasyXdm', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
+    .service('EasyXdm', ['$q', '$cacheFactory', 'wsapiUriBase', function ($q, $cacheFactory, wsapiUriBase) {
 
       function log(something) {
         if (console.log) {
@@ -12,10 +12,6 @@
       }
 
 
-//      var schemeHostAndPort = 'http://localhost:8680';
-      var schemeHostAndPort = 'http://hart-a321.net.ccci.org:8680';
-//      var schemeHostAndPort = 'https://wsapistaging.ccci.org';
-//      var schemeHostAndPort = 'https://wsapi.cru.org';
 
       var xhr;
 
@@ -26,7 +22,7 @@
        * is protected by the cas filter.
        */
       function reloadXhr() {
-        var corsUrl = schemeHostAndPort + '/wsapi/easyXDM/cors/';
+        var corsUrl = wsapiUriBase + '/wsapi/easyXDM/cors/';
         xhr = new easyXDM.Rpc({
           remote: corsUrl
         }, {
@@ -42,7 +38,7 @@
         fetch: function (scope, pathAndQueryString) {
           var deferred = $q.defer();
 
-          var url = schemeHostAndPort + pathAndQueryString;
+          var url = wsapiUriBase + pathAndQueryString;
 
           function handleSuccessfulResponse(response) {
             var data = response.data;
