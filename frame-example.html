@@ -36,7 +36,7 @@
 <div class="container">
     <div class="row">
         <div class="well">
-            <iframe id="iframe_id" frameborder="0" src="index.html" width="100%"></iframe>
+            <iframe id="iframe_id" frameborder="0" src="dashboard.html" width="100%"></iframe>
         </div>
     </div>
 </div>
@@ -45,11 +45,11 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
-    var mpgaFrameStretcher = function() {
+    var frameStretcher = function() {
         $('#iframe_id').height($('#iframe_id').contents().height());
-        setTimeout(mpgaFrameStretcher, 1000);
+        setTimeout(frameStretcher, 1000);
     }
-    $('#iframe_id').load(mpgaFrameStretcher);
+    $('#iframe_id').load(frameStretcher);
 </script>
 
 </body>
