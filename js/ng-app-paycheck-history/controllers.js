@@ -15,7 +15,7 @@
       });
 
       scope.myEmployee.then(function(employee){
-        if (employee.payGroup !== "USS")
+        if (!_.contains(['USS', 'INT', 'RCE'], employee.payGroup))
           window.alert("This page only works for full-time supported staff.")
       });
 
