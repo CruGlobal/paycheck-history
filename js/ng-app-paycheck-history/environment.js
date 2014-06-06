@@ -9,7 +9,7 @@ var mockServiceData = false;
 (function () {
   angular.module('config')
     .constant('pshrUriBase', 'https://pshr.staging.ccci.org/psp/hcm9stg')
-    .constant('wsapiUriBase', 'http://hart-a321.net.ccci.org:8680')
+    .constant('wsapiUriBase', 'https://wsapi.cru.org')
   ;
 
 })();
