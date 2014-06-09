@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the apps should use test data instead of getting data from WSAPI.
- * This is used in services.js.
+ * This is used by several of the services that load data.
  */
 var mockServiceData = false;
 

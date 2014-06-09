@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  angular.module('paycheckHistory').
-    directive('yearSummary', ['pshrUriBase', function (pshrUriBase) {
+  angular.module('paycheckHistory')
+    .directive('yearSummary', ['pshrUriBase', function (pshrUriBase) {
       return {
         restrict: 'E',
         scope:{
