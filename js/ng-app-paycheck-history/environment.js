@@ -7,7 +7,7 @@
 var mockServiceData = false;
 
 (function () {
-  angular.module('config')
+  angular.module('paycheckHistory')
     .constant('pshrUriBase', 'https://pshr.staging.ccci.org/psp/hcm9stg')
     .constant('wsapiUriBase', 'https://wsapi.cru.org')
   ;

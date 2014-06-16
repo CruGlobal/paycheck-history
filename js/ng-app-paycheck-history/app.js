@@ -1,7 +1,5 @@
 'use strict';
 
 (function () {
-  angular.module('config', []);
-  angular.module('paycheckHistory', ['config', 'ngResource']);
-
+  angular.module('paycheckHistory', ['ngResource']);
 })();
