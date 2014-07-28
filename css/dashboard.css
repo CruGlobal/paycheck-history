@@ -930,6 +930,12 @@ div.navbar-inner {
 tfoot tr td {
   font-weight: bold; color: #444; border-top: 1px solid #888!important;
 }
+.paystubs {
+  font-size: 15px; padding-right: 18px; background-image: url('external_blue.gif'); background-repeat: no-repeat; background-position: right;
+}
+.paystubs:hover {
+    background-image: url('external_teal.gif');
+}
 
 @media print {
     body#mpga div#mpga-heading span, div.header, .dashboard .navbar {
