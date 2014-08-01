@@ -10,7 +10,22 @@
     "federalTaxWithholdings": 171.97,
     "totalTax": 171.97,
     "totalDeductions": 192.67,
-    "netPay": 729.62
+    "netPay": 729.62,
+    "offCycle": false
+  },
+  {
+    "paycheckDate": "2013-01-12",
+    "payEndDate": "2013-01-16",
+    "regularPay": 0.00,
+    "mhaPay": 0.00,
+    "totalPay": 450.00,
+    "preTax403b": 0.00,
+    "roth403b": 0.00,
+    "federalTaxWithholdings": 65.20,
+    "totalTax": 65.20,
+    "totalDeductions": 0.00,
+    "netPay": 384.80,
+    "offCycle": true
   },
   {
     "paycheckDate": "2013-01-26",
@@ -23,7 +38,8 @@
     "federalTaxWithholdings": 71.70,
     "totalTax": 71.70,
     "totalDeductions": 192.67,
-    "netPay": 939.79
+    "netPay": 939.79,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-02-10",
@@ -36,7 +52,8 @@
     "federalTaxWithholdings": 136.70,
     "totalTax": 136.70,
     "totalDeductions": 192.67,
-    "netPay": 773.79
+    "netPay": 773.79,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-02-26",
@@ -49,7 +66,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 213.02,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-03-10",
@@ -62,7 +80,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-03-26",
@@ -75,7 +94,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-03-07",
@@ -88,7 +108,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-03-26",
@@ -101,7 +122,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-06-10",
@@ -114,7 +136,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-06-26",
@@ -127,7 +150,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-06-10",
@@ -140,7 +164,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-06-23",
@@ -153,7 +178,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-07-07",
@@ -166,7 +192,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-07-26",
@@ -179,7 +206,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-07-10",
@@ -192,7 +220,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-07-26",
@@ -205,7 +234,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-09-09",
@@ -218,7 +248,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-09-23",
@@ -231,7 +262,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-10-07",
@@ -244,7 +276,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-10-26",
@@ -257,7 +290,8 @@
     "federalTaxWithholdings": 161.73,
     "totalTax": 161.73,
     "totalDeductions": 229.06,
-    "netPay": 966.69
+    "netPay": 966.69,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-11-10",
@@ -270,7 +304,8 @@
     "federalTaxWithholdings": 136.73,
     "totalTax": 136.73,
     "totalDeductions": 237.79,
-    "netPay": 931.00
+    "netPay": 931.00,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-11-23",
@@ -283,7 +318,8 @@
     "federalTaxWithholdings": 136.73,
     "totalTax": 136.73,
     "totalDeductions": 237.79,
-    "netPay": 931.00
+    "netPay": 931.00,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-12-09",
@@ -296,7 +332,8 @@
     "federalTaxWithholdings": 136.73,
     "totalTax": 136.73,
     "totalDeductions": 237.79,
-    "netPay": 931.00
+    "netPay": 931.00,
+    "offCycle": false
   },
   {
     "paycheckDate": "2013-12-22",
