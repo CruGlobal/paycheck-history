@@ -8,8 +8,8 @@ var mockServiceData = false;
 
 (function () {
   angular.module('paycheckHistory')
-//    .constant('pshrUriBase', 'https://pshrstage.cru.org/psc/hcm92s')
-    .constant('pshrUriBase', 'https://pshr.cru.org/psc/hcm92p')
+//    .constant('pshrUriBase', 'https://pshrstage.cru.org/psp/hcm92s')
+    .constant('pshrUriBase', 'https://pshr.cru.org/psp/hcm92p')
     .constant('wsapiUriBase', 'https://wsapi.cru.org')
   ;
 
