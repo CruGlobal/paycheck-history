@@ -21,7 +21,7 @@
         replace: true,
         templateUrl: 'js/ng-app-paycheck-history/templates/year-summary.html',
         link: function(scope) {
-          scope.paystubLink = pshrUriBase + "/EMPLOYEE/HRMS/c/ROLE_EMPLOYEE.PY_IC_PAY_INQ.GBL"
+          scope.paystubLink = pshrUriBase + "/EMPLOYEE/HRMS/c/ROLE_EMPLOYEE.PY_IC_PAY_INQ.GBL?NAVSTACK=Clear"
         }
       }
     }]);
