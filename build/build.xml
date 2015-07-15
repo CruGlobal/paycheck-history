@@ -321,6 +321,7 @@
                    -js.scripts.concat,
                    -jstxt,
                    -css,
+                   -csstxt,
                    -htmlclean,
                    -htmlcleanclientlibs,
                    -imagespng,
@@ -1013,6 +1014,7 @@ ${scripts.sha}.js
         <propertyregex property="css.sha" input="${css.fullsha}" regexp=".{${hash.length}}" select="\0" />
         <property name="style.css" value="${dir.css}/${css.sha}.css" />
         <copy file="${dir.intermediate}/${dir.css}/style-concat.min.css" tofile="${dir.publish}/${dir.css}/${css.sha}.css" />
+        <copy file="${dir.intermediate}/${dir.css}/style-concat.min.css" tofile="${dir.clientlibs}/${dir.css}/${css.sha}.css" />
         <echo message="Minifying any unconcatenated css files..."/>
         <apply executable="java" parallel="false">
             <fileset dir="${dir.source}/${dir.css}/" excludes="${concat-files}" includes="**/*.css"/>
@@ -1023,12 +1025,32 @@ ${scripts.sha}.js
             <mapper type="glob" from="*.css" to="${basedir}/${dir.publish}/${dir.css}/*.css"/>
             <targetfile/>
         </apply>
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.source}/${dir.css}/" excludes="${concat-files}" includes="**/*.css"/>
+            <arg line="-jar"/>
+            <arg path="${dir.build.tools}/${tool.yuicompressor}"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.css" to="${basedir}/${dir.clientlibs}/${dir.css}/*.css"/>
+            <targetfile/>
+        </apply>
     </target>
     <!-- bring back the glory of hot pink -->
     <target name="hawterize">
         <replace file="${dir.source}/${dir.css}/${file.root.stylesheet}"
                         token="#b3d4fc"
                        value="#fe57a1" />
+    </target>
+    <target name="-csstxt" depends="-css">
+        <echo message="Creating css.txt file"/>
+        <!-- The echo block is sent to the file exactly as it is here,
+             so a newline after the opening tag would be written to the file.
+             Also, any tabs/spaces to make it pretty here would be written to the file. -->
+        <echo file="${dir.clientlibs}/css.txt">#base=${dir.css}
+
+${css.sha}.css
+print.css
+        </echo>
     </target>
     
     <!-- IMAGES -->
