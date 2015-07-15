@@ -326,6 +326,7 @@
                    -htmlcleanclientlibs,
                    -imagespng,
                    -imagesjpg,
+                   -nodeinfo,
                    -copy,
                    -jsdoc3"/>
     
@@ -1221,6 +1222,39 @@ print.css
             </else>
         </if>
     </target>
+
+    <!-- NodeInfo -->
+    <target name="-nodeinfo" depends="-mkdirs">
+        <antcall target="-nodeinfo.basic.sling.folder">
+            <param name="nodeinfo_path" value="${dir.clientlibs}/${dir.js}"/>
+        </antcall>
+        <antcall target="-nodeinfo.basic.sling.folder">
+            <param name="nodeinfo_path" value="${dir.clientlibs}/${dir.css}"/>
+        </antcall>
+        <antcall target="-nodeinfo.basic.clientlib.folder">
+            <param name="nodeinfo_path" value="${dir.clientlibs}"/>
+        </antcall>
+        <antcall target="-nodeinfo.component">
+            <param name="nodeinfo_path" value="${dir.aem}"/>
+            <param name="body_class" value="dashboard"/>
+            <param name="title" value="Paycheck History"/>
+        </antcall>
+    </target>
+    <target name="-nodeinfo.basic.sling.folder" depends="-mkdirs">
+        <copy file="${dir.build}/xmlTemplates/nodeInfo_slingFolder.xml" tofile="${nodeinfo_path}/@nodeinfo.xml"/>
+    </target>
+    <target name="-nodeinfo.basic.clientlib.folder" depends="-mkdirs">
+        <copy file="${dir.build}/xmlTemplates/nodeInfo_clientLibFolder.xml" tofile="${nodeinfo_path}/@nodeinfo.xml"/>
+    </target>
+    <target name="-nodeinfo.component" depends="-mkdirs">
+        <copy file="${dir.build}/xmlTemplates/nodeInfo_component.xml" tofile="${nodeinfo_path}/@nodeinfo.xml">
+            <filterset>
+                <filter token="BODY_CLASS" value="${body_class}"/>
+                <filter token="TITLE" value="${title}"/>
+            </filterset>
+        </copy>
+    </target>
+
     <macrodef name="lessjs">
         <attribute name="input" />
         <attribute name="output" />

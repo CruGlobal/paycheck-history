@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node nodeType="cq:Component">
+    <nodesOrder>
+        <value />
+    </nodesOrder>
+    <properties>
+        <property name="bodyClass" type="1" multiple="false">
+            <value><![CDATA[@BODY_CLASS@]]></value>
+        </property>
+        <property name="componentGroup" type="1" multiple="false">
+            <value><![CDATA[.hidden]]></value>
+        </property>
+        <property name="jcr:title" type="1" multiple="false">
+            <value><![CDATA[@TITLE@]]></value>
+        </property>
+        <property name="sling:resourceSuperType" type="1" multiple="false">
+            <value><![CDATA[CruOrgApp/components/page/htmlbase]]></value>
+        </property>
+    </properties>
+    <mixins />
+</node>
