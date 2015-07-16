@@ -525,6 +525,8 @@
             </fileset>
         </copy>
         <echo message="A copy of all new non-dev files are now in: ./${dir.aem}."/>
+        <echo message="Renaming ${file.root.page} to content.html"/>
+        <rename src="${dir.aem}/${file.root.page}" dest="${dir.aem}/content.html"/>
     </target>
     <target name="-copyall" depends="-mkdirs">
         <!-- This is a private target -->
