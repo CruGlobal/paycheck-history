@@ -880,6 +880,13 @@ ${scripts.sha}.js
             <fileset dir="${dir.intermediate}" includes="${page-files}"/>
         </replaceregexp>
     </target>
+    <target name="-css-remove-minified-import">
+        <echo>Removing ${file.root.stylesheet} @import from HTML</echo>
+        <replaceregexp match="@import(.+)url\(['&quot;]?(.*)\/${file.root.stylesheet}(?:\?.*)?['&quot;\s]?(.*)\);"
+                       replace="" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+    </target>
     <target name="css-split" description="turns style.css into multiple files @imported together">
         <copy file="${dir.source}/${dir.css}/${file.root.stylesheet}" tofile="${dir.source}/${dir.css}/${file.root.stylesheet}.temp"/>
         <replaceregexp file="${dir.source}/${dir.css}/${file.root.stylesheet}.temp"
