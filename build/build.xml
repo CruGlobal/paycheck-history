@@ -850,6 +850,18 @@
         <replaceregexp match="&lt;script\s*src=['&quot;]js\/(?:(?!vendor).)*['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
             <fileset dir="${dir.intermediate}" includes="${page-files}"/>
         </replaceregexp>
+        <replaceregexp match="&lt;script\s*src=['&quot;](.*)angular(.*)['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+        <replaceregexp match="&lt;script\s*src=['&quot;](.*)moment(.*)['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+        <replaceregexp match="&lt;script\s*src=['&quot;](.*)underscore(.*)['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
+        <replaceregexp match="&lt;script\s*src=['&quot;](.*)jquery(.*)['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
         <!--<replaceregexp match="&lt;script\s*src=[&quot;](.*)[&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">-->
             <!--<fileset dir="${dir.intermediate}" includes="${page-files}"/>-->
         <!--</replaceregexp>-->
