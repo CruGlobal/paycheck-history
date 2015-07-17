@@ -585,7 +585,21 @@
         </if>
     </target>
 
-    <target name="-js.all.minify" depends="-mkdirs" description="(PRIVATE) Minifies the scripts.js files created by js.scripts.concat">
+    <target name="-js.all.minify" depends="-mkdirs,-js.all.minify.common" description="(PRIVATE) Minifies the scripts.js files created by js.scripts.concat">
+        <!-- at this point all js files are minified with their original names -->
+        
+        <copy todir="${dir.publish}/${dir.js}">
+            <fileset dir="${dir.intermediate}/${dir.js}" includes="${file.js.bypass}, ${slug.libs}/*">
+                <exclude name="scripts-concat.js"/>
+                <exclude name="scripts-concat.min.js"/>
+                <exclude name="otherscripts-concat.js"/>
+                <exclude name="plugins.js"/>
+                <exclude name="${file.root.script}"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="-js.all.minify.common" depends="-mkdirs.common">
         <echo message="Minifying scripts"/>
         <copy todir="${dir.intermediate}/${dir.js}">
             <fileset dir="${dir.source}/${dir.js}" includes="${file.js.bypass}, **/*.min.js"/>
@@ -607,18 +621,6 @@
             <mapper type="glob" from="*.js" to="${basedir}/${dir.intermediate}/${dir.js}/*.js"/>
             <targetfile/>
         </apply>
-        
-        <!-- at this point all js files are minified with their original names -->
-        
-        <copy todir="${dir.publish}/${dir.js}">
-            <fileset dir="${dir.intermediate}/${dir.js}" includes="${file.js.bypass}, ${slug.libs}/*">
-                <exclude name="scripts-concat.js"/>
-                <exclude name="scripts-concat.min.js"/>
-                <exclude name="otherscripts-concat.js"/>
-                <exclude name="plugins.js"/>
-                <exclude name="${file.root.script}"/>
-            </fileset>
-        </copy>
     </target>
 
     <!-- HTML -->
@@ -1336,29 +1338,7 @@
         <!-- All the work is done in -js.main.concat.common -->
     </target>
 
-    <target name="-js.all.minify.aem" depends="-mkdirs.aem">
-        <echo message="Minifying scripts"/>
-        <copy todir="${dir.intermediate}/${dir.js}">
-            <fileset dir="${dir.source}/${dir.js}" includes="${file.js.bypass}, **/*.min.js"/>
-        </copy>
-        <apply executable="java" parallel="false">
-            <fileset dir="${dir.source}/${dir.js}" excludes="${file.js.bypass}, **/*.min.js" includes="**/*.js">
-                <exclude name="${dir.js}/otherscripts-concat.js"/>
-                <exclude name="${dir.js}/scripts-concat.js"/>
-            </fileset>
-            <arg line="-jar"/>
-            <arg path="./${dir.build.tools}/closure-compiler-v1346.jar"/>
-            <arg line="--js"/>
-            <srcfile/>
-            <arg line="--compilation_level" />
-            <arg value="${scripts.compilation.level}" />
-            <arg line="--warning_level" />
-            <arg value="${scripts.compilation.warninglevel}" />
-            <arg line="--js_output_file" />
-            <mapper type="glob" from="*.js" to="${basedir}/${dir.intermediate}/${dir.js}/*.js"/>
-            <targetfile/>
-        </apply>
-
+    <target name="-js.all.minify.aem" depends="-mkdirs.aem,-js.all.minify.common">
         <!-- at this point all js files are minified with their original names -->
 
         <copy todir="${dir.aem}/${dir.js}">
