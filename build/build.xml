@@ -1080,39 +1080,173 @@
 
 
     <!-- AEM specific targets -->
-    <target name="-mkdirs.aem" depends="-mkdirs">
+    <!-- TODO: Remove copy/paste -->
+    <target name="-mkdirs.aem">
         <condition property="clientlibs.exists">
             <available file="${dir.clientlibs}" type="dir"/>
         </condition>
-
-        <echo message="Creating directory structure... ${dir.aem}"/>
+        <condition property="publish.exists">
+            <available file="${dir.publish}" type="dir"/>
+        </condition>
+        <condition property="intermediate.exists">
+            <available file="${dir.intermediate}" type="dir"/>
+        </condition>
         <if>
-            <and>
-                <equals arg1="${clientlibs.exists}" arg2="true"/>
-            </and>
+            <or>
+                <equals arg1="${dir.publish}" arg2="."/>
+                <equals arg1="${dir.publish}" arg2=".."/>
+                <equals arg1="${dir.publish}" arg2="/"/>
+                <equals arg1="${dir.publish}" arg2="./"/>
+                <equals arg1="${dir.publish}" arg2="../"/>
+            </or>
             <then>
-                <echo message="The directories ${dir.aem} and ${dir.clientlibs} already exist."/>
+                <fail message="Your dir.publish folder is set to ${dir.publish} which could delete your entire site or worse. Change it in project.properties"/>
             </then>
+            <else>
+                <echo message="Creating directory structure... ${dir.publish}"/>
+                <if>
+                    <and>
+                        <equals arg1="${publish.exists}" arg2="true"/>
+                        <equals arg1="${intermediate.exists}" arg2="true"/>
+                        <equals arg1="${clientlibs.exists}" arg2="true"/>
+                    </and>
+                    <then>
+                        <echo message="The directories ${dir.publish}, ${dir.intermediate}, ${dir.aem}, and ${dir.clientlibs} already exist."/>
+                    </then>
+                    <else>
+                        <mkdir dir="${dir.intermediate}"/>
+                        <copy todir="${dir.intermediate}" includeEmptyDirs="true">
+                            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}"/>
+                        </copy>
+                        <mkdir dir="${dir.publish}"/>
+                        <mkdir dir="${dir.aem}"/>
+                        <mkdir dir="${dir.clientlibs}"/>
+                        <copy todir="${dir.clientlibs}" includeEmptyDirs="true">
+                            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
+                        </copy>
+                    </else>
+                </if>
+            </else>
         </if>
-        <mkdir dir="${dir.aem}"/>
-        <mkdir dir="${dir.clientlibs}"/>
-        <copy todir="${dir.clientlibs}" includeEmptyDirs="true">
-            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
-        </copy>
     </target>
 
-    <target name="-js.scripts.concat.aem" depends="-js.scripts.concat" if="build.concat.scripts">
+    <target name="-js.scripts.concat.aem" depends="-js.main.concat.aem" if="build.concat.scripts">
+        <echo message="Concatenating library file with main script file"/>
         <if>
             <available file="${dir.intermediate}/${dir.js}/scripts-concat.min.js"/>
             <then>
+                <checksum file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" algorithm="sha" property="scripts.fullsha" />
+                <propertyregex property="scripts.sha" input="${scripts.fullsha}" regexp=".{${hash.length}}" select="\0" />
                 <property name="scripts.js" value="${dir.js}/${scripts.sha}.js" />
                 <copy file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" tofile="${dir.clientlibs}/${dir.js}/${scripts.sha}.js" />
             </then>
         </if>
+
+        <!-- cachebust modules directory name -->
+        <!-- Concatinate only to generate checksum. Concatinated file not actually published. -->
+        <if>
+            <available file="./${dir.intermediate}/${dir.js.modules}"/>
+            <then>
+                <concat destfile="./${dir.intermediate}/${dir.js.modules}/_all.js" overwrite="no">
+                    <fileset dir="./${dir.intermediate}/${dir.js.modules}/">
+                        <include name="*.js"/>
+                    </fileset>
+                </concat>
+                <if>
+                    <available file="./${dir.intermediate}/${dir.js.modules}/_all.js"/>
+                    <then>
+                        <checksum file="${dir.intermediate}/${dir.js.modules}/_all.js" algorithm="sha" property="modules.fullsha" />
+                        <propertyregex property="modules.sha" input="${modules.fullsha}" regexp=".{${hash.length}}" select="\0" />
+                        <property name="modules.js.dir" value="${dir.js}/${modules.sha}" />
+                        <move file="${dir.clientlibs}/${dir.js.modules}/" tofile="${dir.clientlibs}/${dir.js}/${modules.sha}/" />
+                        <copy todir="${dir.clientlibs}/${dir.js}/${modules.sha}/" >
+                            <fileset dir="${dir.intermediate}/${dir.js.modules}" includes="**/**.js" excludes="_all.js" />
+                        </copy>
+                    </then>
+                </if>
+            </then>
+        </if>
     </target>
 
-    <target name="-css.aem" depends="-css">
+    <!-- TODO: Remove copy/paste -->
+    <target name="-css.aem" description="Concatenates and Minifies any stylesheets @imported via the file.stylesheets">
+        <echo message="Concatenating any @imports..."/>
+
+        <!-- copy source file to intermediate directory -->
+        <copy file="${dir.source}/${dir.css}/${file.root.stylesheet}" tofile="${dir.intermediate}/${dir.css}/${file.root.stylesheet}"/>
+
+        <!-- replace imports with h5bp-import tags (part 1) this one wraps @media types -->
+        <replaceregexp file="${dir.intermediate}/${dir.css}/${file.root.stylesheet}"
+                       match="^@import\s+(?:url\s*\(\s*['&quot;]?|['&quot;])((?!http:|https:|ftp:|\/\/)[^&quot;^'^\s]+)(?:['&quot;]?\s*\)|['&quot;])\s*([\w\s\(\)\d\:,\-]*);.*$"
+                       replace="@media \2{ /* h5bp-import: \1 */ }" byline="true" />
+
+        <!-- replace imports with h5bp-import tags (part 2) -->
+        <replaceregexp file="${dir.intermediate}/${dir.css}/${file.root.stylesheet}"
+                       match="^@media \{ (/\* .* \*/) \}" replace="\1" byline="true" />
+
+        <!-- copy skeleton to concat file -->
+        <copy file="${dir.intermediate}/${dir.css}/${file.root.stylesheet}"
+              tofile="${dir.intermediate}/${dir.css}/style-concat.css" overwrite="true"/>
+
+        <!-- load the file into a property -->
+        <loadfile property="imports" srcfile="${dir.intermediate}/${dir.css}/${file.root.stylesheet}"/>
+        <var name="concat-files" value="${file.root.stylesheet}"/>
+
+        <!-- go over the file line by line -->
+        <for delimiter="${line.separator}" param="import" list="${imports}">
+            <sequential>
+                <!-- does this line contain an h5bp-import? -->
+                <propertyregex property="file.name" input="@{import}" regexp="/\* h5bp-import: (.*) \*/" select="\1" casesensitive="true" override="true" />
+                <if>
+                    <isset property="file.name"/>
+                    <then>
+                        <var name="concat-files" value="${file.name},${concat-files}"/>
+
+                        <!-- load the file into a variable -->
+                        <loadfile property="file.contents" srcFile="${dir.source}/${dir.css}/${file.name}"/>
+
+                        <!-- pop that file into the concatenated output file -->
+                        <replace file="${dir.intermediate}/${dir.css}/style-concat.css" token="/* h5bp-import: ${file.name} */" value="${file.contents}"/>
+                        <var name="file.contents" unset="true"/>
+                    </then>
+                </if>
+            </sequential>
+        </for>
+        <if>
+            <equals arg1="${build.css.less}" arg2="true"/>
+            <then>
+                <echo message="Processing LESS CSS..."/>
+                <lessjs input="${dir.intermediate}/${dir.css}/style-concat.css" output="${dir.intermediate}/${dir.css}/style-concat.css" />
+            </then>
+            <else>
+                <echo message="NOT Processing LESS CSS"/>
+            </else>
+        </if>
+        <if>
+            <equals arg1="${build.css.scss}" arg2="true"/>
+            <then>
+                <echo message="Processing SASS (SCSS) CSS..."/>
+                <copy file="${dir.intermediate}/${dir.css}/style-concat.css" tofile="${dir.intermediate}/${dir.css}/style-concat.scss" />
+                <scss input="${dir.intermediate}/${dir.css}/style-concat.scss" output="${dir.intermediate}/${dir.css}/style-concat.css" />
+            </then>
+            <else>
+                <echo message="NOT Processing SASS (SCSS) CSS"/>
+            </else>
+        </if>
         <echo message="Minifying css..."/>
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.intermediate}/${dir.css}/" includes="style-concat.css"/>
+            <arg line="-jar"/>
+            <arg path="${dir.build.tools}/${tool.yuicompressor}"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="merge" to="${basedir}/${dir.intermediate}/${dir.css}/style-concat.min.css"/>
+            <targetfile/>
+        </apply>
+        <checksum file="${dir.intermediate}/${dir.css}/style-concat.min.css" algorithm="sha" property="css.fullsha" />
+        <propertyregex property="css.sha" input="${css.fullsha}" regexp=".{${hash.length}}" select="\0" />
+        <property name="style.css" value="${dir.css}/${css.sha}.css" />
+
         <copy file="${dir.intermediate}/${dir.css}/style-concat.min.css" tofile="${dir.clientlibs}/${dir.css}/${css.sha}.css" />
         <echo message="Minifying any unconcatenated css files..."/>
         <apply executable="java" parallel="false">
@@ -1218,7 +1352,55 @@
         <foreach list="${file.stylesheets}" param="css_file" target="-css-remove-concatenated-stylesheets" />
     </target>
 
+    <!-- Unfortunately, this is an exact copy of -js.main.concat. This target is here because of the dependency chain:
+         -js.main.concat depends upon -js.all.minify which creates files for non-AEM purposes.
+         This target allows for the AEM build to be completely separate -->
+    <target name="-js.main.concat.aem" depends="-js.all.minify.aem" description="(PRIVATE) Concatenates the JS files in dir.js">
+        <filelist id="file.root" dir="${dir.source}" files="${file.root.page}"/>
+        <echo message="Concatenating Main JS scripts based on ${file.root.page}..."/>
+        <apply executable="java" parallel="false"
+               outputproperty="scripts.ordered">
+            <arg value="-cp"/>
+            <arg value="./${dir.build.tools}"/>
+            <arg value="ScriptsToConcat"/>
+            <first>
+                <filelist refid="file.root"/>
+            </first>
+        </apply>
+        <filelist id="scripts.toconcat" dir="./${dir.intermediate}/" files="${scripts.ordered}">
+        </filelist>
+
+        <!-- overwrite=no here means not to overwrite if the target is newer than the sources -->
+        <concat destfile="./${dir.intermediate}/${dir.js}/scripts-concat.min.js" overwrite="no">
+            <filelist refid="scripts.toconcat"/>
+        </concat>
+    </target>
+
     <target name="-js.all.minify.aem" depends="-mkdirs.aem">
+        <echo message="Minifying scripts"/>
+        <copy todir="${dir.intermediate}/${dir.js}">
+            <fileset dir="${dir.source}/${dir.js}" includes="${file.js.bypass}, **/*.min.js"/>
+        </copy>
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.source}/${dir.js}" excludes="${file.js.bypass}, **/*.min.js" includes="**/*.js">
+                <exclude name="${dir.js}/otherscripts-concat.js"/>
+                <exclude name="${dir.js}/scripts-concat.js"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="./${dir.build.tools}/closure-compiler-v1346.jar"/>
+            <arg line="--js"/>
+            <srcfile/>
+            <arg line="--compilation_level" />
+            <arg value="${scripts.compilation.level}" />
+            <arg line="--warning_level" />
+            <arg value="${scripts.compilation.warninglevel}" />
+            <arg line="--js_output_file" />
+            <mapper type="glob" from="*.js" to="${basedir}/${dir.intermediate}/${dir.js}/*.js"/>
+            <targetfile/>
+        </apply>
+
+        <!-- at this point all js files are minified with their original names -->
+
         <copy todir="${dir.aem}/${dir.js}">
             <fileset dir="${dir.intermediate}/${dir.js}" includes="${file.js.bypass}, ${slug.libs}/*">
                 <exclude name="scripts-concat.js"/>
@@ -1230,7 +1412,7 @@
         </copy>
     </target>
 
-    <target name="-jstxt" depends="-usemin">
+    <target name="-jstxt" depends="-usemin.aem">
         <echo message="Creating js.txt file"/>
         <!-- The echo block is sent to the file exactly as it is here,
              so a newline after the opening tag would be written to the file.
@@ -1241,7 +1423,7 @@ ${scripts.sha}.js
         </echo>
     </target>
 
-    <target name="-csstxt" depends="-css">
+    <target name="-csstxt" depends="-css.aem">
         <echo message="Creating css.txt file"/>
         <!-- The echo block is sent to the file exactly as it is here,
              so a newline after the opening tag would be written to the file.
@@ -1298,7 +1480,7 @@ print.css
     </target>
 
     <!-- NodeInfo -->
-    <target name="-nodeinfo" depends="-mkdirs">
+    <target name="-nodeinfo" depends="-mkdirs.aem">
         <antcall target="-nodeinfo.basic.sling.folder">
             <param name="nodeinfo_path" value="${dir.clientlibs}/${dir.js}"/>
         </antcall>
@@ -1314,13 +1496,13 @@ print.css
             <param name="title" value="Paycheck History"/>
         </antcall>
     </target>
-    <target name="-nodeinfo.basic.sling.folder" depends="-mkdirs">
+    <target name="-nodeinfo.basic.sling.folder" depends="-mkdirs.aem">
         <copy file="${dir.build}/xmlTemplates/nodeInfo_slingFolder.xml" tofile="${nodeinfo_path}/@nodeinfo.xml"/>
     </target>
-    <target name="-nodeinfo.basic.clientlib.folder" depends="-mkdirs">
+    <target name="-nodeinfo.basic.clientlib.folder" depends="-mkdirs.aem">
         <copy file="${dir.build}/xmlTemplates/nodeInfo_clientLibFolder.xml" tofile="${nodeinfo_path}/@nodeinfo.xml"/>
     </target>
-    <target name="-nodeinfo.component" depends="-mkdirs">
+    <target name="-nodeinfo.component" depends="-mkdirs.aem">
         <copy file="${dir.build}/xmlTemplates/nodeInfo_component.xml" tofile="${nodeinfo_path}/@nodeinfo.xml">
             <filterset>
                 <filter token="BODY_CLASS" value="${body_class}"/>
