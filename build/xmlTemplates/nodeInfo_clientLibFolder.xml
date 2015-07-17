@@ -9,9 +9,9 @@
         </property>
         <property name="dependencies" type="1" multiple="true">
             <value><![CDATA[jquery]]></value>
-            <value><![CDATA[angularjs]]></value>
             <value><![CDATA[underscore]]></value>
             <value><![CDATA[moment-1.7]]></value>
+            <value><![CDATA[angularjs-1.0.3]]></value>
         </property>
     </properties>
     <mixins />
