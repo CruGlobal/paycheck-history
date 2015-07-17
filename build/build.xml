@@ -1278,12 +1278,6 @@ print.css
         <replaceregexp match="&lt;script\s*src=['&quot;](.*)jquery(.*)['&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">
             <fileset dir="${dir.intermediate}" includes="${page-files}"/>
         </replaceregexp>
-        <!--<replaceregexp match="&lt;script\s*src=[&quot;](.*)[&quot;]\s*&gt;&lt;\/script&gt;" replace="" byline="true">-->
-        <!--<fileset dir="${dir.intermediate}" includes="${page-files}"/>-->
-        <!--</replaceregexp>-->
-        <!--<replaceregexp match="&lt;script&gt;\s*(.*)\s*&lt;\/script&gt;" replace="" byline="true">-->
-        <!--<fileset dir="${dir.intermediate}" includes="${page-files}"/>-->
-        <!--</replaceregexp>-->
     </target>
 
     <target name="-htmlclean.aem" depends="-usemin.aem">
