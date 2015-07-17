@@ -434,7 +434,12 @@
         <echo message=" "/>
         <echo message=" "/>
     </target>
-    <target name="-mkdirs">
+    <target name="-mkdirs" depends="-mkdirs.common">
+        <copy todir="${dir.publish}" includeEmptyDirs="true">
+            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
+        </copy>
+    </target>
+    <target name="-mkdirs.common">
         <condition property="publish.exists">
             <available file="${dir.publish}" type="dir"/>
         </condition>
@@ -468,9 +473,6 @@
                             <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}"/>
                         </copy>
                         <mkdir dir="${dir.publish}"/>
-                        <copy todir="${dir.publish}" includeEmptyDirs="true">
-                            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
-                        </copy>
                     </else>
                 </if>
             </else>
@@ -1080,52 +1082,22 @@
 
 
     <!-- AEM specific targets -->
-    <!-- TODO: Remove copy/paste -->
-    <target name="-mkdirs.aem">
+    <target name="-mkdirs.aem" depends="-mkdirs.common">
         <condition property="clientlibs.exists">
             <available file="${dir.clientlibs}" type="dir"/>
         </condition>
-        <condition property="publish.exists">
-            <available file="${dir.publish}" type="dir"/>
-        </condition>
-        <condition property="intermediate.exists">
-            <available file="${dir.intermediate}" type="dir"/>
-        </condition>
+
         <if>
-            <or>
-                <equals arg1="${dir.publish}" arg2="."/>
-                <equals arg1="${dir.publish}" arg2=".."/>
-                <equals arg1="${dir.publish}" arg2="/"/>
-                <equals arg1="${dir.publish}" arg2="./"/>
-                <equals arg1="${dir.publish}" arg2="../"/>
-            </or>
+            <equals arg1="${clientlibs.exists}" arg2="true"/>
             <then>
-                <fail message="Your dir.publish folder is set to ${dir.publish} which could delete your entire site or worse. Change it in project.properties"/>
+                <echo message="The directories ${dir.aem} and ${dir.clientlibs} already exist."/>
             </then>
             <else>
-                <echo message="Creating directory structure... ${dir.publish}"/>
-                <if>
-                    <and>
-                        <equals arg1="${publish.exists}" arg2="true"/>
-                        <equals arg1="${intermediate.exists}" arg2="true"/>
-                        <equals arg1="${clientlibs.exists}" arg2="true"/>
-                    </and>
-                    <then>
-                        <echo message="The directories ${dir.publish}, ${dir.intermediate}, ${dir.aem}, and ${dir.clientlibs} already exist."/>
-                    </then>
-                    <else>
-                        <mkdir dir="${dir.intermediate}"/>
-                        <copy todir="${dir.intermediate}" includeEmptyDirs="true">
-                            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}"/>
-                        </copy>
-                        <mkdir dir="${dir.publish}"/>
-                        <mkdir dir="${dir.aem}"/>
-                        <mkdir dir="${dir.clientlibs}"/>
-                        <copy todir="${dir.clientlibs}" includeEmptyDirs="true">
-                            <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
-                        </copy>
-                    </else>
-                </if>
+                <mkdir dir="${dir.aem}"/>
+                <mkdir dir="${dir.clientlibs}"/>
+                <copy todir="${dir.clientlibs}" includeEmptyDirs="true">
+                    <dirset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}" includes="*"/>
+                </copy>
             </else>
         </if>
     </target>
