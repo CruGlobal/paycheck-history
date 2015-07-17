@@ -10,6 +10,7 @@
         <property name="dependencies" type="1" multiple="true">
             <value><![CDATA[angularjs]]></value>
             <value><![CDATA[underscore]]></value>
+            <value><![CDATA[moment-1.7]]></value>
         </property>
     </properties>
     <mixins />
