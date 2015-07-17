@@ -524,7 +524,30 @@
             <filelist refid="scripts.toconcat"/>
         </concat>
     </target>
-    <target name="-js.scripts.concat" depends="-js.main.concat" if="build.concat.scripts">
+    <target name="-js.scripts.concat" depends="-js.main.concat,-js.scripts.concat.common" if="build.concat.scripts">
+        <if>
+            <available file="${dir.intermediate}/${dir.js}/scripts-concat.min.js"/>
+            <then>
+                <copy file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" tofile="${dir.publish}/${dir.js}/${scripts.sha}.js" />
+            </then>
+        </if>
+        <if>
+            <available file="./${dir.intermediate}/${dir.js.modules}"/>
+            <then>
+                <if>
+                    <available file="./${dir.intermediate}/${dir.js.modules}/_all.js"/>
+                    <then>
+                        <move file="${dir.publish}/${dir.js.modules}/" tofile="${dir.publish}/${dir.js}/${modules.sha}/" />
+                        <copy todir="${dir.publish}/${dir.js}/${modules.sha}/" >
+                            <fileset dir="${dir.intermediate}/${dir.js.modules}" includes="**/**.js" excludes="_all.js" />
+                        </copy>
+                    </then>
+                </if>
+            </then>
+        </if>
+    </target>
+
+    <target name="-js.scripts.concat.common">
         <echo message="Concatenating library file with main script file"/>
         <if>
             <available file="${dir.intermediate}/${dir.js}/scripts-concat.min.js"/>
@@ -532,10 +555,9 @@
                 <checksum file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" algorithm="sha" property="scripts.fullsha" />
                 <propertyregex property="scripts.sha" input="${scripts.fullsha}" regexp=".{${hash.length}}" select="\0" />
                 <property name="scripts.js" value="${dir.js}/${scripts.sha}.js" />
-                <copy file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" tofile="${dir.publish}/${dir.js}/${scripts.sha}.js" />
             </then>
         </if>
-        
+
         <!-- cachebust modules directory name -->
         <!-- Concatinate only to generate checksum. Concatinated file not actually published. -->
         <if>
@@ -552,10 +574,6 @@
                         <checksum file="${dir.intermediate}/${dir.js.modules}/_all.js" algorithm="sha" property="modules.fullsha" />
                         <propertyregex property="modules.sha" input="${modules.fullsha}" regexp=".{${hash.length}}" select="\0" />
                         <property name="modules.js.dir" value="${dir.js}/${modules.sha}" />
-                        <move file="${dir.publish}/${dir.js.modules}/" tofile="${dir.publish}/${dir.js}/${modules.sha}/" />
-                        <copy todir="${dir.publish}/${dir.js}/${modules.sha}/" >
-                            <fileset dir="${dir.intermediate}/${dir.js.modules}" includes="**/**.js" excludes="_all.js" />
-                        </copy>
                     </then>
                 </if>
             </then>
@@ -1102,34 +1120,19 @@
         </if>
     </target>
 
-    <target name="-js.scripts.concat.aem" depends="-js.main.concat.aem" if="build.concat.scripts">
-        <echo message="Concatenating library file with main script file"/>
+    <target name="-js.scripts.concat.aem" depends="-js.main.concat.aem,-js.scripts.concat.common" if="build.concat.scripts">
         <if>
             <available file="${dir.intermediate}/${dir.js}/scripts-concat.min.js"/>
             <then>
-                <checksum file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" algorithm="sha" property="scripts.fullsha" />
-                <propertyregex property="scripts.sha" input="${scripts.fullsha}" regexp=".{${hash.length}}" select="\0" />
-                <property name="scripts.js" value="${dir.js}/${scripts.sha}.js" />
                 <copy file="${dir.intermediate}/${dir.js}/scripts-concat.min.js" tofile="${dir.clientlibs}/${dir.js}/${scripts.sha}.js" />
             </then>
         </if>
-
-        <!-- cachebust modules directory name -->
-        <!-- Concatinate only to generate checksum. Concatinated file not actually published. -->
         <if>
             <available file="./${dir.intermediate}/${dir.js.modules}"/>
             <then>
-                <concat destfile="./${dir.intermediate}/${dir.js.modules}/_all.js" overwrite="no">
-                    <fileset dir="./${dir.intermediate}/${dir.js.modules}/">
-                        <include name="*.js"/>
-                    </fileset>
-                </concat>
                 <if>
                     <available file="./${dir.intermediate}/${dir.js.modules}/_all.js"/>
                     <then>
-                        <checksum file="${dir.intermediate}/${dir.js.modules}/_all.js" algorithm="sha" property="modules.fullsha" />
-                        <propertyregex property="modules.sha" input="${modules.fullsha}" regexp=".{${hash.length}}" select="\0" />
-                        <property name="modules.js.dir" value="${dir.js}/${modules.sha}" />
                         <move file="${dir.clientlibs}/${dir.js.modules}/" tofile="${dir.clientlibs}/${dir.js}/${modules.sha}/" />
                         <copy todir="${dir.clientlibs}/${dir.js}/${modules.sha}/" >
                             <fileset dir="${dir.intermediate}/${dir.js.modules}" includes="**/**.js" excludes="_all.js" />
