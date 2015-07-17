@@ -521,7 +521,12 @@
                 <!-- this is not strictly necessary, but it avoids putting unreferenced files into your server -->
                 <exclude name="${dir.js}/**/*.js"/>
                 <exclude name="${dir.js.modules}"/>
-                <exclude name="${dir.css}/**/*.css"/>
+                <exclude name="${dir.css}/"/>
+            </fileset>
+        </copy>
+        <copy todir="./${dir.clientlibs}/${dir.css}" includeEmptyDirs="false">
+            <fileset dir="${dir.source}/${dir.css}" excludes="${file.default.exclude}, ${file.exclude}">
+                <exclude name="**/*.css"/>
             </fileset>
         </copy>
         <echo message="A copy of all new non-dev files are now in: ./${dir.aem}."/>
