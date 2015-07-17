@@ -7,8 +7,9 @@
         <property name="categories" type="1" multiple="false">
             <value><![CDATA[cq.wcm.edit]]></value>
         </property>
-        <property name="dependencies" type="1" multiple="false">
+        <property name="dependencies" type="1" multiple="true">
             <value><![CDATA[angularjs]]></value>
+            <value><![CDATA[underscore]]></value>
         </property>
     </properties>
     <mixins />
