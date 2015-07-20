@@ -392,7 +392,8 @@
                    -js-remove-scripts,
                    -htmlclean.aem,
                    -nodeinfo,
-                   -copy.aem"/>
+                   -copy.aem,
+                   -delete.unnecessary"/>
     <target name="-aem.production"
             depends="-intro,
                    -usemin.aem,
@@ -404,7 +405,8 @@
                    -js-remove-scripts,
                    -htmlclean.aem,
                    -nodeinfo,
-                   -copy.aem"/>
+                   -copy.aem,
+                   -delete.unnecessary"/>
     
     <!--
   *************************************************
@@ -1392,6 +1394,14 @@ print.css
             <fileset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}"></fileset>
         </copy>
         <echo message="A copy of all non-dev files are now in: ./${dir.aem}."/>
+    </target>
+
+    <target name="-delete.unnecessary">
+        <echo message="Deleting unnecessary files from AEM build"/>
+        <delete file="${dir.aem}/frame-example.html" failonerror="false" verbose="true"/>
+        <delete file="${dir.aem}/${dir.js}/vendor/angular-resource.min.js" failonerror="false" verbose="true"/>
+        <delete file="${dir.aem}/${dir.js}/vendor/angular-strap.min.js" failonerror="false" verbose="true"/>
+        <delete file="${dir.aem}/${dir.js}/vendor/easyXDM.debug.js" failonerror="false" verbose="true"/>
     </target>
 
 
