@@ -9,3 +9,5 @@ set `mockServiceData` to true in `js/ng-app-paycheck-history/environment.js`.
 To build, run `cd build; ant clean build`.
 The minified version will be in the `publish` directory.
 View at [http://localhost:8000/publish/dashboard.html](http://localhost:8000/publish/dashboard.html)
+
+To build for use in an Adobe Experience Manager (AEM) instance, run `cd build; ant clean aem`.
