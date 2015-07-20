@@ -4,9 +4,6 @@
         <value />
     </nodesOrder>
     <properties>
-        <property name="bodyClass" type="1" multiple="false">
-            <value><![CDATA[@BODY_CLASS@]]></value>
-        </property>
         <property name="componentGroup" type="1" multiple="false">
             <value><![CDATA[.hidden]]></value>
         </property>

@@ -1344,7 +1344,6 @@ print.css
         </antcall>
         <antcall target="-nodeinfo.component">
             <param name="nodeinfo_path" value="${dir.aem}"/>
-            <param name="body_class" value="dashboard"/>
             <param name="title" value="Paycheck History"/>
         </antcall>
     </target>
@@ -1357,7 +1356,6 @@ print.css
     <target name="-nodeinfo.component" depends="-mkdirs.aem">
         <copy file="${dir.build}/xmlTemplates/nodeInfo_component.xml" tofile="${nodeinfo_path}/@nodeinfo.xml">
             <filterset>
-                <filter token="BODY_CLASS" value="${body_class}"/>
                 <filter token="TITLE" value="${title}"/>
             </filterset>
         </copy>
