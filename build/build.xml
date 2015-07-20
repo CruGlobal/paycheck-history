@@ -676,6 +676,10 @@
         replace="&lt;link\1href='\2/${css.sha}.css'\3" flags="m">
             <fileset dir="${dir.intermediate}" includes="${page-files}"/>
         </replaceregexp>
+        <replaceregexp match="@import(.+)url\(['&quot;]?(.*)\/${file.root.stylesheet}(?:\?.*)?['&quot;\s]?(.*)\);"
+                       replace="@import\1url('\2/${css.sha}.css'\3);" flags="m" byline="true">
+            <fileset dir="${dir.intermediate}" includes="${page-files}"/>
+        </replaceregexp>
         
         <antcall target="-tidy.less"/>
         <foreach list="${file.stylesheets}" param="css_file" target="-css-remove-concatenated-stylesheets" />
