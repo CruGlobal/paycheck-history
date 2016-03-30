@@ -10,6 +10,7 @@
     "federalTaxWithholdings": 136.73,
     "totalTax": 136.73,
     "totalDeductions": 237.79,
-    "netPay": 931.00
+    "netPay": 931.00,
+    "offCycle": false
   }
 ]
