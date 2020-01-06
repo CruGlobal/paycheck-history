@@ -45,6 +45,15 @@
         scope.spouseSummary.then(addOtherDeductions);
       });
 
+      scope.getYears = function() {
+        var totalYears = new Date().getFullYear() - 2012;
+        var years = [];
+        for (var i = 0; i < totalYears; i++) {
+            years.unshift(2012 + i);
+        }
+        return years;
+      }
+
       function addOtherDeductions(summary) {
         _.each(summary, function (line) {
           line.otherDeductions = line.totalDeductions - line.roth403b - line.preTax403b;
