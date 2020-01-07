@@ -48,7 +48,7 @@
       scope.getYears = function() {
         var totalYears = new Date().getFullYear() - 2012;
         var years = [];
-        for (var i = 0; i < totalYears; i++) {
+        for (var i = 0; i <= totalYears; i++) {
             years.unshift(2012 + i);
         }
         return years;
