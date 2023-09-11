@@ -19,10 +19,15 @@
 
   <script language="JavaScript" type="text/javascript">
     document.domain='cru.org';
+
+    function resizeIframe() {
+      const height = document.getElementsByTagName("html")[0].scrollHeight;
+      parent.postMessage(["setHeight", height], "*");
+    }
   </script>
 </head>
 
-<body data-ng-app="paycheckHistory" id="paycheckHistory">
+<body data-ng-app="paycheckHistory" id="paycheckHistory" onload="resizeIframe();">
   <!--[if lt IE 9]><p class=chromeframe>Your browser is <em>outdated.</em>
       <a href="http://browsehappy.com/">Upgrade to a different browser</a> or
       <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to fully experience this site.</p><![endif]-->
@@ -102,6 +107,7 @@
   <script src="js/ng-app-paycheck-history/services/employeeLoader.js"></script>
   <script src="js/ng-app-paycheck-history/services/summaryLoader.js"></script>
   <script src="js/ng-app-paycheck-history/services/easy-xdm.js"></script>
+  <script src="js/ng-app-paycheck-history/services/resizeIframe.js"></script>
 
   <!-- end scripts -->
 
