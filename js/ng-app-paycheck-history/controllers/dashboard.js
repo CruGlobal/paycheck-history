@@ -2,7 +2,7 @@
 
 (function () {
   angular.module('paycheckHistory')
-    .controller('DashboardController', ['$scope', 'SummaryLoader', 'EmployeeIds', 'EmployeeLoader', function (scope, SummaryLoader, EmployeeIds, EmployeeLoader) {
+    .controller('DashboardController', ['$scope', 'SummaryLoader', 'EmployeeIds', 'EmployeeLoader', 'ResizeIframe', function (scope, SummaryLoader, EmployeeIds, EmployeeLoader, ResizeIframe) {
       scope.year = new Date().getFullYear();
 
       scope.employeeIds = EmployeeIds;
@@ -43,6 +43,7 @@
         });
 
         scope.spouseSummary.then(addOtherDeductions);
+        ResizeIframe.resizeIframe();
       });
 
       scope.getYears = function() {
