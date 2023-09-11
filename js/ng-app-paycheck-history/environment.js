@@ -8,9 +8,8 @@ var mockServiceData = false;
 
 (function () {
   angular.module('paycheckHistory')
-//    .constant('pshrUriBase', 'https://pshrstage.cru.org/psc/hcm92s')
-    .constant('pshrUriBase', 'https://pshr.cru.org/psc/hcm92p')
-    .constant('wsapiUriBase', 'https://wsapi.cru.org')
+   .constant('pshrUriBase', 'https://pshrstage.cru.org/psc/hcm92s')
+    .constant('wsapiUriBase', 'https://wsapi-stage.cru.org')
   ;
 
 })();
